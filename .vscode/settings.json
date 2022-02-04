@@ -1,16 +1,13 @@
 {
-  "appService.defaultWebAppToDeploy": "",
+  "appService.defaultWebAppToDeploy": "/subscriptions/883e508c-7fa6-4410-a3d3-5d03a6653271/resourceGroups/ResourceGroup1/providers/Microsoft.Web/sites/TLH-Mongo",
   "appService.deploySubpath": ".",
   "workbench.colorTheme": "Cyberpunk",
-  "appService.zipIgnorePattern": [
-    "node_modules{,/**}",
-    ".vscode{,/**}"
-  ],
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
   "files.associations": {
     "*.ejs": "html"
   },
   "emmet.includeLanguages": {
-    "ejs": "html",
+    "ejs": "html"
   },
   "html.format.templating": true
 }

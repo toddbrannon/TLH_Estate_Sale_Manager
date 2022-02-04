@@ -11,9 +11,19 @@ export const saleToInvoice = sale => {
     const transactionsOpeningDay = isNumber(sale.transactionsOpeningDay) ? sale.transactionsOpeningDay : (sale.transactionsOpeningDay.trim() === '' ? '0' : 'NaN')
     const transactionTotal = isNumber(sale.transactionTotal) ? sale.transactionTotal : (sale.transactionTotal.trim() === '' ? '0' : 'NaN')
 
-    const totalTrueLegacyFee = parseFloat(sale.minimumActual) + parseFloat(sale.commissionRate)
-    const netShareToClient = parseFloat(sale.grossSalesActualClover) - totalTrueLegacyFee
     const grossSalesEntireSale = parseFloat(sale.grossSalesCreditDebit || sale.grossSalesCash)
+    const grossSalesCash = parseFloat(sale.grossSalesCash)
+    const cashOutsideClover = parseFloat(sale.cashOutsideClover)
+    const grossSalesCreditDebit = parseFloat(sale.grossSalesCreditDebit)
+    const grossSalesActualClover = parseFloat(sale.grossSalesActualClover)
+    const grossProceeds = grossSalesCash + cashOutsideClover + (grossSalesCreditDebit * 0.965) - (grossSalesActualClover * 0.0775)
+    const commissionRateTotal = parseFloat(`${sale.commissionRate/100 * sale.grossSalesActualClover}`)
+    const trueLegacyFeePercent = parseFloat(`${sale.commissionRate/100}`)
+    const trueLegacyFeeMinimum = parseFloat(sale.trueLegacyFeeMinimum)
+    const trueLegacyFee = (grossProceeds - trueLegacyFeeMinimum) * trueLegacyFeePercent
+    const totalTrueLegacyFee = trueLegacyFeeMinimum + trueLegacyFee
+    const netShareToClient = parseFloat(sale.grossSalesActualClover) - totalTrueLegacyFee
+    
 
     return {
         ...sale,
@@ -26,10 +36,11 @@ export const saleToInvoice = sale => {
         MailingAddress: ["clientMailingAddress1", "clientMailingAddress2", "clientMailingCity"
             , "clientMailingState", "clientPostalCode"].reduce((acc, cur) => sale[cur] && sale[cur] !== '0' ? `${acc}, ${sale[cur]}` : acc, '')
             .substring(1).trim(),
-        grossProceeds: toCurrency(sale.grossSalesActualClover),
+        grossProceeds: toCurrency(grossProceeds).toLocaleString("en-US"),
         trueLegacyFeeMinimum: toCurrency(sale.minimumActual),
-        trueLegacyFee: toCurrency(sale.commissionRate),
-        totalTrueLegacyFee: toCurrency(`${totalTrueLegacyFee}`),
+        // trueLegacyFee: toCurrency(`${sale.commissionRate/100 * sale.grossSalesActualClover}`),
+        trueLegacyFee: trueLegacyFeePercent,
+        totalTrueLegacyFee: toCurrency(totalTrueLegacyFee),
         netShareToClient: toCurrency(`${netShareToClient}`),
         disposal: toCurrency(sale.disposalFee),
         totalAmountDue: toCurrency(`${netShareToClient - parseFloat(sale.disposalFee)}`),
@@ -42,5 +53,6 @@ export const saleToInvoice = sale => {
 
         grossSalesEntireSale: toCurrency(`${grossSalesEntireSale}`),
         avePurchaseAmountEntireSale: toCurrency(`${grossSalesEntireSale / parseInt(transactionTotal)}`),
+
     }
 }

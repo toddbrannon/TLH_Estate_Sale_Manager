@@ -17,43 +17,26 @@
       <div class="col-lg-12 py-4">
         <!-- Split button -->
 
-        <div class="btn-group">
-          <button type="button"
-                  class="btn btn-select-action">Select an Action</button>
-          <button type="button"
-                  id="action-dropdown"
-                  class="btn btn-select-action dropdown-toggle"
-                  data-bs-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only"></span>
-          </button>
-          <ul class="dropdown-menu"
-              aria-labelledby="action-dropdown">
-            <li>
-              <a href="/sale"
-                 class="dropdown-item">
-                Create New Sale
-              </a>
-            </li>
-            <!-- <li><a href="/input2" class="dropdown-item">Create New Sale 2</a></li> -->
-            <li>
-              <a href="/sales"
-                 class="dropdown-item">View Current Sales
-              </a>
-            </li>
-            <!-- <li><a href="/" class="dropdown-item">View Previous Sales</a></li> -->
-            <li role="separator"
-                class="divider">
-            </li>
-            <li>
-              <a href="/admin"
-                 class="dropdown-item">
-                Admin
-              </a>
-            </li>
-          </ul>
-
-        </div>
+        <div class="card text-center landing-card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" id="tab-new" onclick="changeContentNew()" aria-current="true" href="#">Add New</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="tab-existing" onclick="changeContentExisting()" href="#">View Existing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="tab-admin" onclick="changeContentAdmin()" href="#" tabindex="-1" aria-disabled="true">Admin</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body" id="landing-card-body">
+            <!-- <h5 class="card-title" id="landing-card-title">Add New Sale</h5> -->
+            <p class="card-text" id="landing-card-text">Add data for a brand new estate sale</p>
+            <a href="/sale" class="btn btn-select-action" id="landing-card-btn">Add New Sale</a>
+          </div>
+        </div> 
 
       </div>
     </div>
