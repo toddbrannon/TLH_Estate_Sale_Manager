@@ -6,7 +6,9 @@ import { pool } from '../../config/database';
 import { isConditionalExpression } from 'typescript';
 import { stringify } from 'querystring';
 import { saleToInvoice } from '../../invoice';
-const { requiresAuth } = require('express-openid-connect');
+const { requiresAuth } = !process.env.AUTH0_DISABLED ?
+  require('express-openid-connect') :
+  require('../../auth/express-free-connect');
 
 class IndexRouter {
   readonly router: express.Router;
@@ -91,6 +93,7 @@ class IndexRouter {
         }
 
         sale = setStatus(sale || {});
+        sale = setCorrectSplitFee(sale);
 
         pool.query(sql, (err, rows, results) => {
           // console.log(rows);
@@ -107,7 +110,7 @@ class IndexRouter {
             trailerNumberArray: rows[5],
             openingDayArray: rows[6],
             stateArray: rows[7],
-            sale: sale
+            sale
           });
         });
       } catch (err) {
@@ -117,6 +120,17 @@ class IndexRouter {
         return
       }
     })
+
+    const setCorrectSplitFee = (sale) => {
+      let splitFee = '0';
+      if(sale.splitFee){
+        splitFee = sale.splitFee;
+        if(sale.splitFee.indexOf('.') > 0){
+          sale.splitFee = (parseFloat(sale.splitFee) * 100).toString()
+        }
+      }
+      return sale;
+    }
 
     const setStatus = (sale) => {
       const sections = getSaleSectionConfig();
@@ -186,7 +200,7 @@ class IndexRouter {
       console.log("Trying to add a new sale")
       console.log("Job name is " + req.body.jobName)
 
-      const sale: Sale = {
+      const sale = {
         jobName: req.body.jobName,
         hoursStagingBudget: req.body.hoursStagingBudget,
         market: req.body.market,
@@ -232,7 +246,9 @@ class IndexRouter {
         taxesFees: req.body.taxesFees,
         additionalDonationLoanCost: req.body.additionalDonationLoanCost,
         courtesyDiscount: req.body.courtesyDiscount,
-        postSaleHours: req.body.postSaleHours
+        postSaleHours: req.body.postSaleHours,
+        otherGrossProceedsText: req.body.otherGrossProceedsText,
+        otherGrossProceedsDollar: req.body.otherGrossProceedsDollar
       };
 
       try {
@@ -300,12 +316,12 @@ class IndexRouter {
         } else {
           sale = {};
         }
+        sale = setCorrectSplitFee(sale);
 
         res.render('invoice', {
           title: 'True Legacy Homes Sale Manager New Sale',
           authUser: req['oidc'].user,
-          invoice: saleToInvoice(sale),
-          sale
+          invoice: saleToInvoice(sale)
         });
 
       } catch (err) {

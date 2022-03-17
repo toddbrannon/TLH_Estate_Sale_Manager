@@ -16,16 +16,12 @@ export const saleToInvoice = sale => {
         //return isNumber(str) ? `$ ${parseFloat(str).toFixed(2)}` : 'NaN'
     }
 
-    const transactions8To10 = isNumber(sale.transactions8To10) ? sale.transactions8To10 : (!sale.transactions8To10 || sale.transactions8To10.trim() === '' ? '0' : 'NaN')
-    const transactionsOpeningDay = isNumber(sale.transactionsOpeningDay) ? sale.transactionsOpeningDay : (!sale.transactionsOpeningDay || sale.transactionsOpeningDay.trim() === '' ? '0' : 'NaN')
-    const transactionTotal = isNumber(sale.transactionTotal) ? sale.transactionTotal : (!sale.transactionTotal || sale.transactionTotal.trim() === '' ? '0' : 'NaN')
+    const transactions8To10 = isNumber(sale.transactions8To10) ? sale.transactions8To10 : (sale.transactions8To10.trim() === '' ? '0' : 'NaN')
+    const transactionsOpeningDay = isNumber(sale.transactionsOpeningDay) ? sale.transactionsOpeningDay : (sale.transactionsOpeningDay.trim() === '' ? '0' : 'NaN')
+    const transactionTotal = isNumber(sale.transactionTotal) ? sale.transactionTotal : (sale.transactionTotal.trim() === '' ? '0' : 'NaN')
 
-    
-
-    const commissionRateTotal = parseFloat(`${sale.commissionRate/100 * sale.grossSalesActualClover}`)
-    // const totalTrueLegacyFee = parseFloat(sale.minimumActual) + commissionRateTotal
-    
-    
+    const totalTrueLegacyFee = parseFloat(sale.minimumActual) + parseFloat(sale.commissionRate)
+    const netShareToClient = parseFloat(sale.grossSalesActualClover) - totalTrueLegacyFee
     //const grossSalesEntireSale = parseFloat(sale.grossSalesCreditDebit || sale.grossSalesCash)
 
     //Gross Sales Cash + Cash Outside Clover + (Gross Sales Credit & Debit*0.965) – (Gross Sales Actual Clover*0.0775)
@@ -34,15 +30,11 @@ export const saleToInvoice = sale => {
         (parseFloat(sale.grossSalesActualClover) * 0.0775);
     const grossProceedsHelp = `Gross Sales Cash + Cash Outside Clover + (Gross Sales Credit & Debit*0.965) - (Gross Sales Actual Clover*0.0775)@${sale.grossSalesCash} + ${sale.cashOutsideClover} + (${sale.grossSalesCreditDebit}*0.965) - (${sale.grossSalesActualClover}*0.0775)`
 
-    
+    const trueLegacyFeeMinimum = parseFloat(sale.minimumActual);
 
     //(Gross Proceeds – True Legacy Fee Minimum)*True Legacy Fee % = $
-    const trueLegacyFeeMinimum = parseFloat(sale.minimumActual);
     const splitFeeFloat = parseInt(sale.splitFee) / 100;
     const trueLegacyFee = (grossProceeds - trueLegacyFeeMinimum) * splitFeeFloat
-    const totalTrueLegacyFee = trueLegacyFeeMinimum + trueLegacyFee
-    // const netShareToClient = parseFloat(sale.grossSalesActualClover) - totalTrueLegacyFee
-    const netShareToClient = grossProceeds - totalTrueLegacyFee
     const trueLegacyFeeHelp = `(Gross Proceeds - True Legacy Fee Minimum)*True Legacy Fee %@(${grossProceeds} - ${trueLegacyFeeMinimum}) * ${splitFeeFloat}`
 
     const grossSales8To10 = parseFloat(sale.grossSales8To10) * 0.9;
@@ -80,7 +72,7 @@ export const saleToInvoice = sale => {
 
         courtesyDiscount: toCurrency(sale.courtesyDiscount), hasCourtesyDiscount: sale.courtesyDiscount > 0,
 
-        otherGrossProceedsText: sale.otherGrossProceedsText, hasOtherGrossProceedsText: sale.otherGrossProceedsText && sale.otherGrossProceedsText.trim(),
+        otherGrossProceedsText: sale.otherGrossProceedsText, hasOtherGrossProceedsText: sale.otherGrossProceedsText.trim(),
         otherGrossProceedsDollar: toCurrency(sale.otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0
     }
 }

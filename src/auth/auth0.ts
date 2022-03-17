@@ -7,6 +7,7 @@ module.exports = {
       auth0Logout: true,
       secret: process.env.AUTH0_SECRET,
       baseURL: process.env.AUTH0_BASEURL,
+      // baseURL: process.env.AUTH0_TEST_BASEURL,
       clientID: process.env.AUTH0_CLIENTID,
       issuerBaseURL: process.env.AUTH0_ISSUERBASEURL,
     };

@@ -264,9 +264,9 @@
                 <div class="col-lg-3">
                   <div class="form-floating">
                     <input type="number" class="form-control" id="splitFee" name="splitFee"
-                      onchange="setTwoNumberDecimal(this)" min="0" max='1' step="0.01" placeholder=""
+                      min="0" max='100' step="1" placeholder=""
                       value="<%= sale.splitFee %>" required>
-                    <label for="splitFee">Split Fee</label>
+                    <label for="splitFee">Split Fee %</label>
                     <div class="invalid-feedback">
                       Please enter a value
                     </div>
@@ -561,7 +561,7 @@
           <div class="row">
             <div class="col-lg-12 py-1">
               <div class="row g-2">
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                   <div class="form-floating">
                     <input type="number" class="form-control" id="commissionRate" maxlength="2" name="commissionRate"
                       onchange="setTwoNumberDecimal(this)" min="0" step="any" placeholder=""
@@ -571,7 +571,7 @@
                       Please enter a value
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3">
                   <div class="form-floating">
                     <input type="number" class="form-control" id="taxesFees" name="taxesFees"
@@ -581,6 +581,22 @@
                     <div class="invalid-feedback">
                       Please enter a value
                     </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="otherGrossProceedsText" name="otherGrossProceedsText"
+                      placeholder=""
+                      value="<%= sale.otherGrossProceedsText || ' ' %>">
+                    <label for="otherGrossProceedsText">Gross Proceeds (Text input)</label>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="otherGrossProceedsDollar" name="otherGrossProceedsDollar"
+                      onchange="setTwoNumberDecimal(this)" min="0" step="any" placeholder=""
+                      value="<%= sale.otherGrossProceedsDollar || 0 %>">
+                    <label for="otherGrossProceedsDollar">Gross Proceeds (Dollar amount)</label>
                   </div>
                 </div>
               </div>

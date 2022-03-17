@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 export interface Sale {
-  _id: ObjectId,
+  _id?: ObjectId,
   jobName: string,
   hoursStagingBudget: string,
   market: string,
@@ -47,9 +47,7 @@ export interface Sale {
   taxesFees: string,
   additionalDonationLoanCost: string,
   courtesyDiscount: string,
-  postSaleHours: string,
-  otherGrossProceedsText: string,
-  otherGrossProceedsDollar: string
+  postSaleHours: string
 }
 
 export const getSaleSectionConfig = () => {
@@ -123,4 +121,3 @@ export const getSaleSectionConfig = () => {
   ]
 
 }
-

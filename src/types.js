@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb';
+const { ObjectId } = require('mongodb');
 
-export interface Sale {
+const Sale = {
   _id: ObjectId,
   jobName: string,
   hoursStagingBudget: string,
@@ -52,7 +52,7 @@ export interface Sale {
   otherGrossProceedsDollar: string
 }
 
-export const getSaleSectionConfig = () => {
+const getSaleSectionConfig = () => {
   return [
     {
       "name": "Client Info",
@@ -124,3 +124,4 @@ export const getSaleSectionConfig = () => {
 
 }
 
+module.exports = {Sale, getSaleSectionConfig}

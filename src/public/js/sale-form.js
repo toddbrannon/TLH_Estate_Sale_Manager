@@ -31,6 +31,14 @@ const setupNewSale = () => {
   setupSaveButton();
 }
 
+const isExtraValidedSaleResultsCard = form => {
+  //(Gross Sales Credit/Debit + Gross Sales Cash) = Gross Sales Actual Clover
+  const creditDebit = parseFloat(form.get('grossSalesCreditDebit'));
+  const cash = parseFloat(form.get('grossSalesCash'));
+  const actualGlover = parseFloat(form.get('grossSalesActualClover'));
+  return creditDebit + cash === actualGlover
+}
+
 const setupSaveButton = () => {
   submit.addEventListener('click', e => {
     e.preventDefault();
@@ -49,7 +57,18 @@ const setupSaveButton = () => {
     }
 
     const form = document.getElementById('inputForm');
-    const data = new URLSearchParams(new FormData(form));
+    const formData = new FormData(form);
+
+    //System check by card - sale {status} - 2=Sale Results
+    if (currentCard === 2) {
+      if (!isExtraValidedSaleResultsCard(formData)) {
+        alert('Invalid Gross Sales Credit/Debit, Cash, or Actual Clover values.');
+        return;
+      }
+    }
+
+    const data = new URLSearchParams(formData);
+
     let url = '/sale';
     if (saleId) {
       url += '/' + saleId;
@@ -93,12 +112,12 @@ const setupDeleteButton = () => {
       method: 'delete'
     })
       .then(data => {
-        if(data.status !== 200){
+        if (data.status !== 200) {
           //error
           document.getElementById("deleteErrorMessage").innerText = data.statusText
         } else {
           window.location.href = "/sales";
-        }          
+        }
       })
       .catch((error) => {
         console.log('Error:', error);

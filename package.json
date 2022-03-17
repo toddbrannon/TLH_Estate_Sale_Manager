@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -w ./src -i ./src/public/ -e '*' -x 'rm -rf dist/* && tsc && node dist/app'",
-    "startw": "tsc && node dist/app"
+    "startw": "tsc && node dist/app",
+    "build": "./node_modules/typescript/bin/tsc" 
   },
   "author": "",
   "license": "ISC",
