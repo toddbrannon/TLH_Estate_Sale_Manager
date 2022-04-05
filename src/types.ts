@@ -105,7 +105,7 @@ export const getSaleSectionConfig = () => {
         "grossSales8To10",
         "grossSalesCreditDebit",
         "grossSalesCash",
-        "commissionRate",
+        // "commissionRate",
         "taxesFees"
       ]
     },
@@ -123,4 +123,3 @@ export const getSaleSectionConfig = () => {
   ]
 
 }
-

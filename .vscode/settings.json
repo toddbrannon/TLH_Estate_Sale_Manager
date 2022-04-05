@@ -1,6 +1,6 @@
 {
   "appService.deploySubpath": ".",
-  "workbench.colorTheme": "Cyberpunk",
+  "workbench.colorTheme": "Visual Studio Dark",
   "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
   "files.associations": {
     "*.ejs": "html"
