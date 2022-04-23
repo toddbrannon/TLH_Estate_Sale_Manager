@@ -244,7 +244,7 @@ class IndexRouter {
         clientMailingState: req.body.clientMailingState,
         clientPostalCode: req.body.clientPostalCode,
         taxesFees: req.body.taxesFees,
-        additionalDonationLoanCost: req.body.additionalDonationLoanCost,
+        additionalDonationLoadCost: req.body.additionalDonationLoadCost,
         courtesyDiscount: req.body.courtesyDiscount,
         postSaleHours: req.body.postSaleHours,
         otherGrossProceedsText: req.body.otherGrossProceedsText,

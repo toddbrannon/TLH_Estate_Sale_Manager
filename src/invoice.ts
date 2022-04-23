@@ -49,6 +49,9 @@ export const saleToInvoice = sale => {
     const grossSales8To10Help = `90% of Gross Sales Opening Day 8-10@${parseFloat(sale.grossSales8To10)} * 0.9`;
     const grossSalesOpeningDay = parseFloat(sale.grossSalesOpeningDay) * 0.9;
     const grossSalesOpeningDayHelp = `90% of Gross Sales Opening Day@${parseFloat(sale.grossSalesOpeningDay)} * 0.9`;
+    const disposal = parseFloat(sale.disposalFee)
+    const addlDonationLoadCost = parseFloat(sale.additionalDonationLoadCost)
+    const courtesyDiscount = parseFloat(sale.courtesyDiscount)
 
     return {
         ...sale,
@@ -67,7 +70,7 @@ export const saleToInvoice = sale => {
         totalTrueLegacyFee: toCurrency(`${totalTrueLegacyFee}`),
         netShareToClient: toCurrency(`${netShareToClient}`),
         disposal: toCurrency(sale.disposalFee),
-        totalAmountDue: toCurrency(`${netShareToClient - parseFloat(sale.disposalFee)}`),
+        totalAmountDue: toCurrency(`${netShareToClient - disposal - addlDonationLoadCost + courtesyDiscount}`),
 
         grossSales8To10: toCurrency(grossSales8To10), grossSales8To10Help,
         avePurchaseAmount8To10: toCurrency(`${grossSales8To10 / parseInt(transactions8To10)}`),

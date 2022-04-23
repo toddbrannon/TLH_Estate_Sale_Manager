@@ -108,14 +108,22 @@
 									<%= locals.invoice.courtesyDiscount%>
 								</td>
 							</tr>
-							<tr class="<%=locals.invoice.hasOtherGrossProceedsText ? '' : 'hidden'%>">
+							<!-- <tr class="<%=locals.invoice.hasOtherGrossProceedsText ? '' : 'hidden'%>">
 								<td><strong>Other Gross Proceeds</strong></td>
 								<td>
 									<%= locals.invoice.otherGrossProceedsText%>
 								</td>
-							</tr>
-							<tr class="<%=locals.invoice.hasOtherGrossProceedsDollar ? '' : 'hidden'%>">
+							</tr> -->
+							<!-- <tr class="<%=locals.invoice.hasOtherGrossProceedsDollar ? '' : 'hidden'%>">
 								<td><strong>Other Gross Proceeds</strong></td>
+								<td>
+									<%= locals.invoice.otherGrossProceedsDollar%>
+								</td>
+							</tr> -->
+							<tr class="<%=locals.invoice.hasOtherGrossProceedsDollar ? '' : 'hidden'%>">
+								<td>
+									<%= locals.invoice.otherGrossProceedsText%>
+								</td>
 								<td>
 									<%= locals.invoice.otherGrossProceedsDollar%>
 								</td>
