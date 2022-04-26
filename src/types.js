@@ -45,7 +45,7 @@ const Sale = {
   commissionRate: string,
   clientPostalCode: string,
   taxesFees: string,
-  additionalDonationLoanCost: string,
+  additionalDonationLoadCost: string,
   courtesyDiscount: string,
   postSaleHours: string,
   otherGrossProceedsText: string,
@@ -115,7 +115,7 @@ const getSaleSectionConfig = () => {
         "disposalFee",
         "disposalLoadCount",
         "disposalVendorCost",
-        "additionalDonationLoanCost",
+        "additionalDonationLoadCost",
         "courtesyDiscount",
         "postSaleHours"
       ]

@@ -19,9 +19,6 @@ export const saleToInvoice = sale => {
     const transactions8To10 = isNumber(sale.transactions8To10) ? sale.transactions8To10 : (!sale.transactions8To10 || sale.transactions8To10.trim() === '' ? '0' : 'NaN')
     const transactionsOpeningDay = isNumber(sale.transactionsOpeningDay) ? sale.transactionsOpeningDay : (!sale.transactionsOpeningDay || sale.transactionsOpeningDay.trim() === '' ? '0' : 'NaN')
     const transactionTotal = isNumber(sale.transactionTotal) ? sale.transactionTotal : (!sale.transactionTotal || sale.transactionTotal.trim() === '' ? '0' : 'NaN')
-
-    
-
     const commissionRateTotal = parseFloat(`${sale.commissionRate/100 * sale.grossSalesActualClover}`)
     // const totalTrueLegacyFee = parseFloat(sale.minimumActual) + commissionRateTotal
     
@@ -52,6 +49,7 @@ export const saleToInvoice = sale => {
     const disposal = parseFloat(sale.disposalFee)
     const addlDonationLoadCost = parseFloat(sale.additionalDonationLoadCost)
     const courtesyDiscount = parseFloat(sale.courtesyDiscount)
+    const otherGrossProceedsDollar = parseFloat(sale.otherGrossProceedsDollar)
 
     return {
         ...sale,
@@ -69,8 +67,8 @@ export const saleToInvoice = sale => {
         trueLegacyFee: toCurrency(trueLegacyFee), trueLegacyFeeHelp,
         totalTrueLegacyFee: toCurrency(`${totalTrueLegacyFee}`),
         netShareToClient: toCurrency(`${netShareToClient}`),
-        disposal: toCurrency(sale.disposalFee),
-        totalAmountDue: toCurrency(`${netShareToClient - disposal - addlDonationLoadCost + courtesyDiscount}`),
+        disposal: toCurrency(disposal),
+        
 
         grossSales8To10: toCurrency(grossSales8To10), grossSales8To10Help,
         avePurchaseAmount8To10: toCurrency(`${grossSales8To10 / parseInt(transactions8To10)}`),
@@ -81,9 +79,15 @@ export const saleToInvoice = sale => {
         grossSalesEntireSale: toCurrency(`${grossProceeds}`),
         avePurchaseAmountEntireSale: toCurrency(`${grossProceeds / parseInt(transactionTotal)}`),
 
-        courtesyDiscount: toCurrency(sale.courtesyDiscount), hasCourtesyDiscount: sale.courtesyDiscount > 0,
+        courtesyDiscount: toCurrency(courtesyDiscount), hasCourtesyDiscount: sale.courtesyDiscount > 0,
+
 
         otherGrossProceedsText: sale.otherGrossProceedsText, hasOtherGrossProceedsText: sale.otherGrossProceedsText && sale.otherGrossProceedsText.trim(),
-        otherGrossProceedsDollar: toCurrency(sale.otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0
+        otherGrossProceedsDollar: toCurrency(otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0,
+        addlDonationLoadCost: toCurrency(addlDonationLoadCost), hasaddlDonationLoadCost: sale.addlDonationLoadCost > 0,
+
+        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoadCost + otherGrossProceedsDollar}`)
+        // totalAmountDue: toCurrency(`${addlDonationLoadCost}`)
+    
     }
 }
