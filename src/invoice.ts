@@ -47,7 +47,7 @@ export const saleToInvoice = sale => {
     const grossSalesOpeningDay = parseFloat(sale.grossSalesOpeningDay) * 0.9;
     const grossSalesOpeningDayHelp = `90% of Gross Sales Opening Day@${parseFloat(sale.grossSalesOpeningDay)} * 0.9`;
     const disposal = parseFloat(sale.disposalFee)
-    const addlDonationLoadCost = parseFloat(sale.additionalDonationLoadCost)
+    const addlDonationLoanCost = parseFloat(sale.additionalDonationLoanCost)
     const courtesyDiscount = parseFloat(sale.courtesyDiscount)
     const otherGrossProceedsDollar = parseFloat(sale.otherGrossProceedsDollar)
 
@@ -84,10 +84,10 @@ export const saleToInvoice = sale => {
 
         otherGrossProceedsText: sale.otherGrossProceedsText, hasOtherGrossProceedsText: sale.otherGrossProceedsText && sale.otherGrossProceedsText.trim(),
         otherGrossProceedsDollar: toCurrency(otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0,
-        addlDonationLoadCost: toCurrency(addlDonationLoadCost), hasaddlDonationLoadCost: sale.addlDonationLoadCost > 0,
+        addlDonationLoanCost: toCurrency(addlDonationLoanCost), hasaddlDonationLoanCost: sale.addlDonationLoanCost > 0,
 
-        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoadCost + otherGrossProceedsDollar}`)
-        // totalAmountDue: toCurrency(`${addlDonationLoadCost}`)
+        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar}`)
+        // totalAmountDue: toCurrency(`${addlDonationLoanCost}`)
     
     }
 }
