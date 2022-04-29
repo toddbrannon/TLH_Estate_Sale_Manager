@@ -131,7 +131,7 @@
 							<tr>
 								<td><strong>TOTAL AMOUNT DUE</strong></td>
 								<td>
-									<%= locals.invoice.totalAmountDue%>
+									<%= locals.invoice.totalAmountDue%><span class="help no-printable" onClick="alert('<%= locals.invoice.totalAmountDueHelp.replace(String.fromCharCode(64),String.fromCharCode(92,110))%>')">?</span>	
 								</td>
 							</tr>
 

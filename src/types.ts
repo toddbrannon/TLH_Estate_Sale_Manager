@@ -45,7 +45,7 @@ export interface Sale {
   commissionRate: string,
   clientPostalCode: string,
   taxesFees: string,
-  additionalDonationLoadCost: string,
+  additionalDonationLoanCost: string,
   courtesyDiscount: string,
   postSaleHours: string,
   otherGrossProceedsText: string,

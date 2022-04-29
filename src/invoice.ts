@@ -41,7 +41,6 @@ export const saleToInvoice = sale => {
     // const netShareToClient = parseFloat(sale.grossSalesActualClover) - totalTrueLegacyFee
     const netShareToClient = grossProceeds - totalTrueLegacyFee
     const trueLegacyFeeHelp = `(Gross Proceeds - True Legacy Fee Minimum)*True Legacy Fee %@(${grossProceeds} - ${trueLegacyFeeMinimum}) * ${splitFeeFloat}`
-
     const grossSales8To10 = parseFloat(sale.grossSales8To10) * 0.9;
     const grossSales8To10Help = `90% of Gross Sales Opening Day 8-10@${parseFloat(sale.grossSales8To10)} * 0.9`;
     const grossSalesOpeningDay = parseFloat(sale.grossSalesOpeningDay) * 0.9;
@@ -50,6 +49,8 @@ export const saleToInvoice = sale => {
     const addlDonationLoanCost = parseFloat(sale.additionalDonationLoanCost)
     const courtesyDiscount = parseFloat(sale.courtesyDiscount)
     const otherGrossProceedsDollar = parseFloat(sale.otherGrossProceedsDollar)
+    const totalAmountDueHelp = `Total Amount Due = (netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar) =@(${netShareToClient} - ${disposal} + ${courtesyDiscount} - ${addlDonationLoanCost} + ${otherGrossProceedsDollar})`
+    
 
     return {
         ...sale,
@@ -86,7 +87,7 @@ export const saleToInvoice = sale => {
         otherGrossProceedsDollar: toCurrency(otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0,
         addlDonationLoanCost: toCurrency(addlDonationLoanCost), hasaddlDonationLoanCost: sale.addlDonationLoanCost > 0,
 
-        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar}`)
+        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar}`), totalAmountDueHelp
         // totalAmountDue: toCurrency(`${addlDonationLoanCost}`)
     
     }
