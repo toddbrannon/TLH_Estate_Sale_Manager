@@ -46,10 +46,10 @@ export const saleToInvoice = sale => {
     const grossSalesOpeningDay = parseFloat(sale.grossSalesOpeningDay) * 0.9;
     const grossSalesOpeningDayHelp = `90% of Gross Sales Opening Day@${parseFloat(sale.grossSalesOpeningDay)} * 0.9`;
     const disposal = parseFloat(sale.disposalFee)
-    const addlDonationLoanCost = parseFloat(sale.additionalDonationLoanCost)
+    const addlDonationLoadCost = parseFloat(sale.additionalDonationLoadCost)
     const courtesyDiscount = parseFloat(sale.courtesyDiscount)
     const otherGrossProceedsDollar = parseFloat(sale.otherGrossProceedsDollar)
-    const totalAmountDueHelp = `Total Amount Due = (netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar) =@(${netShareToClient} - ${disposal} + ${courtesyDiscount} - ${addlDonationLoanCost} + ${otherGrossProceedsDollar})`
+    const totalAmountDueHelp = `Total Amount Due = (netShareToClient - disposal + courtesyDiscount - addlDonationLoadCost + otherGrossProceedsDollar) =@(${netShareToClient} - ${disposal} + ${courtesyDiscount} - ${addlDonationLoadCost} + ${otherGrossProceedsDollar})`
     
 
     return {
@@ -85,10 +85,10 @@ export const saleToInvoice = sale => {
 
         otherGrossProceedsText: sale.otherGrossProceedsText, hasOtherGrossProceedsText: sale.otherGrossProceedsText && sale.otherGrossProceedsText.trim(),
         otherGrossProceedsDollar: toCurrency(otherGrossProceedsDollar), hasOtherGrossProceedsDollar: sale.otherGrossProceedsDollar > 0,
-        addlDonationLoanCost: toCurrency(addlDonationLoanCost), hasaddlDonationLoanCost: sale.addlDonationLoanCost > 0,
+        addlDonationLoadCost: toCurrency(addlDonationLoadCost), hasaddlDonationLoadCost: sale.addlDonationLoadCost > 0,
 
-        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoanCost + otherGrossProceedsDollar}`), totalAmountDueHelp
-        // totalAmountDue: toCurrency(`${addlDonationLoanCost}`)
+        totalAmountDue: toCurrency(`${netShareToClient - disposal + courtesyDiscount - addlDonationLoadCost + otherGrossProceedsDollar}`), totalAmountDueHelp
+        // totalAmountDue: toCurrency(`${addlDonationLoadCost}`)
     
     }
 }
