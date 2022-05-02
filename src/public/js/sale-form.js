@@ -35,13 +35,15 @@ const isExtraValidedSaleResultsCard = form => {
   //(Gross Sales Credit/Debit + Gross Sales Cash) = Gross Sales Actual Clover
   const creditDebit = parseFloat(form.get('grossSalesCreditDebit'));
   const cash = parseFloat(form.get('grossSalesCash'));
-  const actualGlover = parseFloat(form.get('grossSalesActualClover'));
-  return creditDebit + cash === actualGlover
+  const actualClover = parseFloat(form.get('grossSalesActualClover'));
+  return creditDebit + cash === actualClover
 }
 
 const setupSaveButton = () => {
   submit.addEventListener('click', e => {
     e.preventDefault();
+
+    
 
     document.getElementById("deleteErrorMessage").innerText = ''
 
@@ -60,12 +62,12 @@ const setupSaveButton = () => {
     const formData = new FormData(form);
 
     //System check by card - sale {status} - 2=Sale Results
-    if (currentCard === 2) {
+    // if (currentCard === 2) {
       if (!isExtraValidedSaleResultsCard(formData)) {
-        alert('Invalid Gross Sales Credit/Debit, Cash, or Actual Clover values.');
+        alert('Cannot save your changes: (Gross Sales Credit/Debit + Gross Sales Cash = Gross Sales Actual Clover) must be true. Check your values for these fields and try again.');
         return;
-      }
-    }
+      } 
+    // }
 
     const data = new URLSearchParams(formData);
 

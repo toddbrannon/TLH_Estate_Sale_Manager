@@ -11,12 +11,11 @@ export const saleToInvoice = sale => {
             style: 'currency',
             currency: 'USD',
         });
-
         return formatter.format(str);
         //return isNumber(str) ? `$ ${parseFloat(str).toFixed(2)}` : 'NaN'
     }
 
-    const transactions8To10 = isNumber(sale.transactions8To10) ? sale.transactions8To10 : (!sale.transactions8To10 || sale.transactions8To10.trim() === '' ? '0' : 'NaN')
+    const transactions8To10 = isNumber(sale.transactions8To10) ? sale.transactions8To10 : (!sale.transactions8To10 || sale.transactions8To10.trim() === '' ? '0' : 'Nan')
     const transactionsOpeningDay = isNumber(sale.transactionsOpeningDay) ? sale.transactionsOpeningDay : (!sale.transactionsOpeningDay || sale.transactionsOpeningDay.trim() === '' ? '0' : 'NaN')
     const transactionTotal = isNumber(sale.transactionTotal) ? sale.transactionTotal : (!sale.transactionTotal || sale.transactionTotal.trim() === '' ? '0' : 'NaN')
     const commissionRateTotal = parseFloat(`${sale.commissionRate/100 * sale.grossSalesActualClover}`)
