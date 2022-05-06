@@ -64,6 +64,7 @@ const setupSaveButton = () => {
     //System check by card - sale {status} - 2=Sale Results
     // if (currentCard === 2) {
       if (!isExtraValidedSaleResultsCard(formData)) {
+
         alert('Cannot save your changes: (Gross Sales Credit/Debit + Gross Sales Cash = Gross Sales Actual Clover) must be true. Check your values for these fields and try again.');
         return;
       } 
