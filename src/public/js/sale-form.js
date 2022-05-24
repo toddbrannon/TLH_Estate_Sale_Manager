@@ -36,7 +36,7 @@ const isExtraValidedSaleResultsCard = form => {
   const creditDebit = parseFloat(form.get('grossSalesCreditDebit'));
   const cash = parseFloat(form.get('grossSalesCash'));
   const actualClover = parseFloat(form.get('grossSalesActualClover'));
-  return creditDebit + cash === actualClover
+  return (creditDebit + cash).toFixed(2) === actualClover.toFixed(2)
 }
 
 const setupSaveButton = () => {
